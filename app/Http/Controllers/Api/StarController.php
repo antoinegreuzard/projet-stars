@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class StarController extends Controller
 {
-    protected array $fillable = [
-        'nom',
-        'prenom',
-        'image',
-        'description',
-    ];
-
     /**
      * Display a listing of the resource.
      */
