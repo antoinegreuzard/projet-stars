@@ -5,7 +5,7 @@
         <div v-if="showCreateForm">
             <input v-model="starForm.nom" placeholder="Nom">
             <input v-model="starForm.prenom" placeholder="Prénom">
-            <input v-model="starForm.image" placeholder="URL de l'image">
+            <input type="file" @change="handleFileUpload"/>
             <textarea v-model="starForm.description" placeholder="Description"></textarea>
             <button @click="handleSubmitCreate">Créer</button>
             <button @click="showCreateForm = false">Annuler</button>
@@ -83,20 +83,19 @@ export default {
                 console.error("There was an error fetching the stars: ", error);
             }
         },
-        async createStar() {
+        async createStar(formData) {
             try {
-                const response = await axios.post('/api/stars', this.starForm, {
+                const response = await axios.post('/api/stars', formData, {
                     withCredentials: true,
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
+                        'Content-Type': 'multipart/form-data'
                     },
                 });
                 this.stars.push(response.data);
                 this.resetForm();
                 this.showCreateForm = false;
             } catch (error) {
-                console.error("There was an error creating the star: ", error);
+                console.error("There was an error creating the star: ", error.response.data);
             }
         },
         async updateStar() {
@@ -135,7 +134,15 @@ export default {
             this.showEditForm = true;
         },
         handleSubmitCreate() {
-            this.createStar();
+            const formData = new FormData();
+            formData.append('nom', this.starForm.nom);
+            formData.append('prenom', this.starForm.prenom);
+            if (this.starForm.image instanceof File) {
+                formData.append('image', this.starForm.image);
+            }
+            formData.append('description', this.starForm.description);
+
+            this.createStar(formData);
         },
         handleSubmitEdit() {
             this.updateStar();
@@ -146,6 +153,9 @@ export default {
         },
         resetForm() {
             this.starForm = {nom: '', prenom: '', image: '', description: ''};
+        },
+        handleFileUpload(event) {
+            this.starForm.image = event.target.files[0];
         }
     },
 };

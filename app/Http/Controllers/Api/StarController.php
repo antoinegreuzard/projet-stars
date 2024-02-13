@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Star;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class StarController extends Controller
 {
+    protected array $fillable = [
+        'nom',
+        'prenom',
+        'image',
+        'description',
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -26,9 +34,14 @@ class StarController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image|max:1024', // Assurez-vous que c'est un fichier image
             'description' => 'nullable|string',
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
+            $validated['image'] = Storage::url($path);
+        }
 
         $star = Star::create($validated);
 
