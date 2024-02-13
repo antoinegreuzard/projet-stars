@@ -24,48 +24,48 @@ que les tests unitaires.
 
 1. Clonez le dépôt du projet :
 
-\`\`\`bash
+```bash
 git clone https://votre-repo.git projet-stars
 cd projet-stars
-\`\`\`
+```
 
 2. Installez les dépendances PHP avec Composer :
 
-\`\`\`bash
+```bash
 composer install
-\`\`\`
+```
 
 3. Installez les dépendances front-end avec npm :
 
-\`\`\`bash
+```bash
 npm install
 npm run dev
-\`\`\`
+```
 
 4. Copiez le fichier \`.env.example\` en \`.env\` et configurez votre environnement et votre base de données :
 
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 5. Générez une clé d'application :
 
-\`\`\`bash
+```bash
 php artisan key:generate
-\`\`\`
+```
 
 6. Migrez la base de données et insérez les données de test :
 
-\`\`\`bash
+```bash
 php artisan migrate
 php artisan db:seed
-\`\`\`
+```
 
 7. Lancez le serveur de développement :
 
-\`\`\`bash
+```bash
 php artisan serve
-\`\`\`
+```
 
 Votre application devrait maintenant être accessible à l'adresse [http://localhost:8000](http://localhost:8000).
 
@@ -73,9 +73,9 @@ Votre application devrait maintenant être accessible à l'adresse [http://local
 
 Exécutez les tests unitaires avec PHPUnit :
 
-\`\`\`bash
+```bash
 php artisan test
-\`\`\`
+```
 
 ## Utilisation
 
