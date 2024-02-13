@@ -24,16 +24,16 @@ que les tests unitaires.
 
 1. Clonez le dépôt du projet :
 
-\`\`\`bash
+```bash
 git clone https://votre-repo.git projet-stars
 cd projet-stars
-\`\`\`
+```
 
 2. Installez les dépendances PHP avec Composer :
 
-\`\`\`bash
+```bash
 composer install
-\`\`\`
+```
 
 3. Installez les dépendances front-end avec npm :
 
