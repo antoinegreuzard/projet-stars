@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Star;
+use Illuminate\Http\Request;
+
+class StarController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'image' => 'nullable|image|max:1024', // Assurez-vous de traiter l'upload d'image correctement
+            'description' => 'nullable|string',
+        ]);
+
+        $star = Star::create($validated);
+
+        return response()->json($star, 201);
+    }
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Star $star): \Illuminate\Http\JsonResponse
+    {
+        return response()->json($star);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
