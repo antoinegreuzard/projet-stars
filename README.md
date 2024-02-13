@@ -42,7 +42,7 @@ npm install
 npm run dev
 ```
 
-4. Copiez le fichier \`.env.example\` en \`.env\` et configurez votre environnement et votre base de données :
+4. Copiez le fichier `.env.example` en `.env` et configurez votre environnement et votre base de données :
 
 ```bash
 cp .env.example .env
