@@ -27,19 +27,20 @@ class StarController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'image' => 'nullable|image|max:1024', // Assurez-vous que c'est un fichier image
+            'image' => 'nullable|image|max:1024',
             'description' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/images');
-            $validated['image'] = Storage::url($path);
+            $path = $request->file('image')->store('public/stars');
+            $validated['image'] = Storage::url($path); // Stocke l'URL publique de l'image
         }
 
         $star = Star::create($validated);
 
         return response()->json($star, 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -61,10 +62,20 @@ class StarController extends Controller
             'description' => 'nullable|string',
         ]);
 
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/stars');
+            $validated['image'] = Storage::url($path);
+        } else if (isset($validated['image']) && $validated['image'] === null) {
+            $validated['image'] = null;
+        } else {
+            unset($validated['image']);
+        }
+
         $star->update($validated);
 
         return response()->json($star);
     }
+
 
     /**
      * Remove the specified resource from storage.
