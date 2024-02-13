@@ -1,50 +1,83 @@
 <template>
-    <div>
-        <button @click="showCreateForm = true">Ajouter une star</button>
+    <div class="p-6 bg-white rounded-lg shadow">
+        <button @click="showCreateForm = true"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-150">
+            Ajouter une star
+        </button>
 
-        <div v-if="showCreateForm">
-            <input v-model="starForm.nom" placeholder="Nom">
-            <input v-model="starForm.prenom" placeholder="Prénom">
-            <input type="file" @change="handleFileUpload"/>
-            <textarea v-model="starForm.description" placeholder="Description"></textarea>
-            <button @click="handleSubmitCreate">Créer</button>
-            <button @click="showCreateForm = false">Annuler</button>
+        <div v-if="showCreateForm" class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
+            <input v-model="starForm.nom" placeholder="Nom"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
+            <input v-model="starForm.prenom" placeholder="Prénom"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
+            <input type="file" @change="handleFileUpload"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <textarea v-model="starForm.description" placeholder="Description"
+                      class="textarea w-full mb-3 px-4 py-2 border rounded shadow-sm"></textarea>
+            <div class="flex justify-end space-x-2">
+                <button @click="handleSubmitCreate"
+                        class="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Créer
+                </button>
+                <button @click="showCreateForm = false"
+                        class="btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Annuler
+                </button>
+            </div>
         </div>
 
-        <div v-if="showEditForm">
-            <input v-model="editingStar.nom" placeholder="Nom">
-            <input v-model="editingStar.prenom" placeholder="Prénom">
-            <input v-model="editingStar.image" placeholder="URL de l'image">
-            <textarea v-model="editingStar.description" placeholder="Description"></textarea>
-            <button @click="handleSubmitEdit">Modifier</button>
-            <button @click="cancelEdit">Annuler</button>
-        </div>
+        <div v-if="showEditForm" class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
+            <input v-model="editingStar.nom" placeholder="Nom"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
+            <input v-model="editingStar.prenom" placeholder="Prénom"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="star in stars" :key="star.id">
-                <td>{{ star.nom }}</td>
-                <td>{{ star.prenom }}</td>
-                <td>
-                    <img :src="star.image" alt="Star Image" style="width: 50px; height: auto;">
-                </td>
-                <td>{{ star.description }}</td>
-                <td>
-                    <button @click="prepareEditStar(star.id)">Modifier</button>
-                    <button @click="deleteStar(star.id)">Supprimer</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <div v-if="editingStar.image" class="mb-3">
+                <img :src="editingStar.image" alt="Aperçu de l'image" class="w-32 h-auto rounded">
+            </div>
+
+            <input type="file" @change="handleFileUpload"
+                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+
+            <textarea v-model="editingStar.description" placeholder="Description"
+                      class="textarea w-full mb-3 px-4 py-2 border rounded shadow-sm"></textarea>
+
+            <div class="flex justify-end space-x-2">
+                <button @click="handleSubmitEdit"
+                        class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Modifier
+                </button>
+                <button @click="cancelEdit"
+                        class="btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Annuler
+                </button>
+            </div>
+        </div>
+        <div class="overflow-x-auto mt-6">
+            <table class="w-full text-left rounded-lg overflow-hidden">
+                <thead class="bg-gray-200 uppercase text-gray-600">
+                <tr>
+                    <th class="px-4 py-3">Nom</th>
+                    <th class="px-4 py-3">Prénom</th>
+                    <th class="px-4 py-3">Image</th>
+                    <th class="px-4 py-3">Description</th>
+                    <th class="px-4 py-3">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="star in stars" :key="star.id" class="border-b odd:bg-white even:bg-gray-50">
+                    <td class="px-4 py-3">{{ star.nom }}</td>
+                    <td class="px-4 py-3">{{ star.prenom }}</td>
+                    <td class="px-4 py-3"><img :src="star.image" alt="Star Image" class="w-12 h-auto rounded-full"></td>
+                    <td class="px-4 py-3">{{ star.description }}</td>
+                    <td class="px-4 py-3">
+                        <button @click="prepareEditStar(star.id)"
+                                class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Modifier
+                        </button>
+                        <button @click="deleteStar(star.id)"
+                                class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded">Supprimer
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -155,24 +188,13 @@ export default {
             this.starForm = {nom: '', prenom: '', image: '', description: ''};
         },
         handleFileUpload(event) {
-            this.starForm.image = event.target.files[0];
+            if (this.showEditForm) {
+                this.editingStar.newImage = event.target.files[0];
+            } else {
+                this.starForm.image = event.target.files[0];
+            }
         }
+
     },
 };
 </script>
-
-<style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-</style>
