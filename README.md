@@ -25,7 +25,7 @@ que les tests unitaires.
 1. Clonez le dépôt du projet :
 
 ```bash
-git clone https://votre-repo.git projet-stars
+git clone git@github.com:antoinegreuzard/projet-stars.git projet-stars
 cd projet-stars
 ```
 
