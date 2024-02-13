@@ -33,7 +33,7 @@ class StarController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/stars');
-            $validated['image'] = Storage::url($path); // Stocke l'URL publique de l'image
+            $validated['image'] = Storage::url($path);
         }
 
         $star = Star::create($validated);
