@@ -1,10 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head} from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Dashboard"/>
 
     <AuthenticatedLayout>
         <template #header>
@@ -18,5 +18,7 @@ import { Head } from '@inertiajs/vue3';
                 </div>
             </div>
         </div>
+
+        <StarsTable/>
     </AuthenticatedLayout>
 </template>
