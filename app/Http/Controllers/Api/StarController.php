@@ -26,7 +26,7 @@ class StarController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'image' => 'nullable|image|max:1024', // Assurez-vous de traiter l'upload d'image correctement
+            'image' => 'nullable|image|max:1024',
             'description' => 'nullable|string',
         ]);
 
