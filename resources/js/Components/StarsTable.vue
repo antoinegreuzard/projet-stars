@@ -6,10 +6,16 @@
         </button>
 
         <div v-if="showCreateForm" class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
-            <input v-model="starForm.name" placeholder="name"
-                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
-            <input v-model="starForm.first_name" placeholder="Préname"
-                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
+            <TextInput
+                class="input w-full mb-3 px-4 py-2 border rounded shadow-sm"
+                v-model="starForm.name"
+                placeholder="Name"
+            />
+            <TextInput
+                class="input w-full mb-3 px-4 py-2 border rounded shadow-sm"
+                v-model="starForm.first_name"
+                placeholder="Firstname"
+            />
             <input type="file" @change="handleFileUpload"
                    class="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
             <textarea v-model="starForm.description" placeholder="Description"
@@ -25,10 +31,16 @@
         </div>
 
         <div v-if="showEditForm" class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
-            <input v-model="editingStar.name" placeholder="name"
-                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
-            <input v-model="editingStar.first_name" placeholder="Préname"
-                   class="input w-full mb-3 px-4 py-2 border rounded shadow-sm">
+            <TextInput
+                class="input w-full mb-3 px-4 py-2 border rounded shadow-sm"
+                v-model="editingStar.name"
+                placeholder="Name"
+            />
+            <TextInput
+                class="input w-full mb-3 px-4 py-2 border rounded shadow-sm"
+                v-model="editingStar.first_name"
+                placeholder="Firstname"
+            />
 
             <div v-if="editingStar.image" class="mb-3">
                 <img :src="editingStar.image" alt="Aperçu de l'image" class="w-32 h-auto rounded">
@@ -83,8 +95,10 @@
 
 <script>
 import axios from 'axios'
+import TextInput from "@/Components/TextInput.vue";
 
 export default {
+    components: {TextInput},
     data() {
         return {
             stars: [],

@@ -19,10 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/stars', [StarController::class, 'index']);
+Route::get('/stars/{star}', [StarController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/stars', [StarController::class, 'index']);
-    Route::get('/stars/{star}', [StarController::class, 'show']);
     Route::post('/stars', [StarController::class, 'store']);
     Route::put('/stars/{star}', [StarController::class, 'update']);
     Route::delete('/stars/{star}', [StarController::class, 'destroy']);
