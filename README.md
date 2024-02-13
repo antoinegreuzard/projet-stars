@@ -77,15 +77,57 @@ Exécutez les tests unitaires avec PHPUnit :
 php artisan test
 ```
 
-## Utilisation
+## Routes Utiles
 
-Après vous être connecté avec Laravel Breeze, vous pouvez gérer les stars via l'interface utilisateur ou les API
-fournies. Les routes API respectent les conventions CRUD standards et nécessitent une authentification.
+- **Authentification :**
+    - Login : `POST /login`
+    - Register : `POST /register`
+    - Logout : `POST /logout`
 
-## Contribution
+- **CRUD Stars :**
+    - Lister toutes les stars : `GET /api/stars`
+    - Afficher une star : `GET /api/stars/{id}`
+    - Créer une nouvelle star : `POST /api/stars`
+    - Mettre à jour une star : `PUT /api/stars/{id}`
+    - Supprimer une star : `DELETE /api/stars/{id}`
 
-Nous accueillons les contributions pour améliorer cette application. Veuillez suivre les meilleures pratiques de Laravel
-pour le développement, et n'oubliez pas d'ajouter des tests pour les nouvelles fonctionnalités ou corrections.
+## Utilisation de l'API
+
+### Lister toutes les stars
+
+```bash
+curl -X GET http://localhost:8000/api/stars -H "Accept: application/json"
+```
+
+### Afficher une star
+
+```bash
+curl -X GET http://localhost:8000/api/stars/{id} -H "Accept: application/json"
+```
+
+### Créer une nouvelle star
+
+```bash
+curl -X POST http://localhost:8000/api/stars \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"name":"Nom de la Star", "image":"URL de l'image", "description":"Description de la star"}'
+```
+
+### Mettre à jour une star
+
+```bash
+curl -X PUT http://localhost:8000/api/stars/{id} \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{"name":"Nouveau Nom", "image":"Nouvelle URL de l'image", "description":"Nouvelle description"}'
+```
+
+### Supprimer une star
+
+```bash
+curl -X DELETE http://localhost:8000/api/stars/{id} -H "Accept: application/json"
+```
 
 ## Licence
 
