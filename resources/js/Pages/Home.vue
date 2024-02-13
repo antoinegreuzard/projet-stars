@@ -43,8 +43,8 @@ const selectedStar = computed(() => stars.value[activeStarIndex.value]);
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="p-6 sm:p-8 flex">
-                        <div class="w-64">
+                    <div class="sm:flex p-6 sm:p-8">
+                        <div class="sm:w-64 flex-shrink-0">
                             <ul class="space-y-1">
                                 <li v-for="(star, index) in stars" :key="star.id" @click="activeStarIndex = index"
                                     :class="{'bg-gray-500 text-white': index === activeStarIndex}"
