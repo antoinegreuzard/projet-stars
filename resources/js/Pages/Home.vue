@@ -1,54 +1,7 @@
-<template>
-    <div class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        <Head title="Home"/>
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4 w-full">
-                <h1 class="text-4xl font-bold text-center w-full">Profile Browser</h1>
-                <div class="absolute top-0 right-0 p-6">
-                    <Link v-if="!$page.props.auth.user && canLogin" :href="route('login')"
-                          class="text-blue-500 hover:underline mr-4">Log in
-                    </Link>
-                    <Link v-if="!$page.props.auth.user && canRegister" :href="route('register')"
-                          class="text-blue-500 hover:underline">Register
-                    </Link>
-                    <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-blue-500 hover:underline">
-                        Dashboard
-                    </Link>
-                </div>
-            </div>
-            <div class="flex mt-8">
-                <div class="w-40 border-r-2 border-gray-200">
-                    <ul>
-                        <li v-for="(star, index) in stars" :key="star.id"
-                            :class="{'bg-green-500 text-white': index === activeStarIndex}"
-                            @click="activeStarIndex = index" class="cursor-pointer p-2 hover:bg-green-300">
-                            {{ star.name }}
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-1 p-4">
-                    <div v-if="selectedStar">
-                        <h2 class="text-xl font-bold">{{ selectedStar.name }} {{ selectedStar.first_name }}</h2>
-                        <img :src="selectedStar.image" alt="Star Image" class="w-48 h-auto mt-4 rounded">
-                        <p class="mt-4">{{ selectedStar.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup>
-import {ref, computed, onMounted} from 'vue';
-import {Head, Link} from '@inertiajs/vue3';
+import {ref, onMounted, computed} from 'vue';
 import axios from 'axios';
-
-const props = defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
-});
+import {Head, Link} from '@inertiajs/vue3';
 
 const stars = ref([]);
 const activeStarIndex = ref(0);
@@ -57,9 +10,7 @@ onMounted(async () => {
     try {
         const response = await axios.get('/api/stars');
         stars.value = response.data;
-        if (stars.value.length > 0) {
-            activeStarIndex.value = 0;
-        }
+        if (stars.value.length > 0) activeStarIndex.value = 0;
     } catch (error) {
         console.error('Error fetching stars:', error);
     }
@@ -67,3 +18,52 @@ onMounted(async () => {
 
 const selectedStar = computed(() => stars.value[activeStarIndex.value]);
 </script>
+
+<template>
+    <div class="min-h-screen bg-gray-100">
+        <Head title="Home"/>
+        <nav class="bg-white shadow mb-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <Link :href="route('home')" class="text-lg font-semibold text-gray-800">Profile Browser</Link>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <template v-if="$page.props.auth.user">
+                            <Link :href="route('dashboard')" class="text-gray-800 hover:text-gray-600">Dashboard</Link>
+                        </template>
+                        <template v-else>
+                            <Link :href="route('login')" class="text-gray-800 hover:text-gray-600">Login</Link>
+                            <Link :href="route('register')" class="text-gray-800 hover:text-gray-600">Register</Link>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                    <div class="p-6 sm:p-8 flex">
+                        <div class="w-64">
+                            <ul class="space-y-1">
+                                <li v-for="(star, index) in stars" :key="star.id" @click="activeStarIndex = index"
+                                    :class="{'bg-gray-500 text-white': index === activeStarIndex}"
+                                    class="cursor-pointer p-2 hover:bg-gray-300 rounded-md">
+                                    {{ star.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex-1 p-4">
+                            <div v-if="selectedStar" class="space-y-4">
+                                <h2 class="text-xl font-bold">{{ selectedStar.name }} {{ selectedStar.first_name }}</h2>
+                                <img :src="selectedStar.image" alt="Star Image"
+                                     class="w-full max-w-xs rounded-lg shadow-md">
+                                <p>{{ selectedStar.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
