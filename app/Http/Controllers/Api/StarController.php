@@ -25,8 +25,8 @@ class StarController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
             'image' => 'nullable|image|max:1024',
             'description' => 'nullable|string',
         ]);
@@ -56,8 +56,8 @@ class StarController extends Controller
     public function update(Request $request, Star $star): \Illuminate\Http\JsonResponse
     {
         $validated = $request->validate([
-            'nom' => 'nullable|string|max:255',
-            'prenom' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'first_name' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:1024',
             'description' => 'nullable|string',
         ]);

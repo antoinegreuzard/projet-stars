@@ -10,8 +10,8 @@ class Star extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom',
-        'prenom',
+        'name',
+        'first_name',
         'image',
         'description',
     ];
