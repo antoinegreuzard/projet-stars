@@ -16,7 +16,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
+<<<<<<< HEAD
           node-version: '14'
+=======
+          node-version: '18'
+>>>>>>> 413290b (fix: eslint-prettier target at vendor)
       - name: Install NPM dependencies
         run: npm install
       - name: Run ESLint
