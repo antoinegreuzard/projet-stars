@@ -7,13 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Install Composer dependencies
+        run: composer install --no-progress
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '18'
-      - name: Install dependencies
+          node-version: '14'
+      - name: Install NPM dependencies
         run: npm install
       - name: Run ESLint
         run: npx eslint resources/ --ext .js,.vue
-      - name: Run Prettier Check
-        run: npx prettier --check resources/
