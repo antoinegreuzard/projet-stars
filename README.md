@@ -15,7 +15,7 @@ que les tests unitaires.
 
 ## Prérequis
 
-- PHP >= 8.1
+- PHP >= 8.2
 - Composer
 - Node.js et npm
 - Une base de données prise en charge par Laravel (MySQL, PostgreSQL, SQLite, SQL Server)
