@@ -29,5 +29,4 @@ class StoreStarRequest extends FormRequest
             'description' => 'nullable|string',
         ];
     }
-
 }
