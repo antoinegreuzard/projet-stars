@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('stars', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
+            $table->string('name');
+            $table->string('first_name');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
