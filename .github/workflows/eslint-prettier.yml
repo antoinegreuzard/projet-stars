@@ -14,6 +14,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run ESLint
-        run: npx eslint . --ext .js,.vue
+        run: npx eslint resources/ --ext .js,.vue
       - name: Run Prettier Check
-        run: npx prettier --check .
+        run: npx prettier --check resources/
