@@ -38,7 +38,7 @@ jobs:
         run: npm install
 
       - name: Build assets
-        run: npm run production
+        run: npm run build
 
       - name: Prepare environment
         run: |
