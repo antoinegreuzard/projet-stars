@@ -1,4 +1,4 @@
-import './bootstrap.ts'
+import './bootstrap'
 import '../css/app.css'
 
 import { createApp, h, DefineComponent } from 'vue'

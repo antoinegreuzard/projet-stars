@@ -25,7 +25,15 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never",
+                "js": "never"
+            }
+        ]
     },
     "settings": {
         "import/resolver": {
