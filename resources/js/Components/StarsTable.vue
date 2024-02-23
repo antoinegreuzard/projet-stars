@@ -204,14 +204,9 @@ const handleFormSubmit = async (isEdit: boolean) => {
 
     if (!starData) return
 
-    console.log(isEdit)
-    console.log(starData.name)
-
     formData.append('name', starData.name)
     formData.append('first_name', starData.first_name)
     formData.append('description', starData.description)
-
-    console.log(formData.get('name'))
 
     if (starData.newImage) {
         formData.append('image', starData.newImage, starData.newImage.name)
@@ -229,10 +224,8 @@ const handleFormSubmit = async (isEdit: boolean) => {
             headers: { 'Content-Type': 'multipart/form-data' },
             withCredentials: true
         }
-        console.log(axiosConfig)
 
         const axiosResponse = await axios(axiosConfig)
-        console.log(axiosResponse)
 
         if (isEdit) {
             const index = stars.value.findIndex(
