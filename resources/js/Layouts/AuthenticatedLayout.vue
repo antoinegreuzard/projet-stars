@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-import { Link } from '@inertiajs/vue3'
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
 import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
 import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
+import { Link } from '@inertiajs/vue3'
 
 const showingNavigationDropdown = ref(false)
 </script>
@@ -42,7 +42,7 @@ const showingNavigationDropdown = ref(false)
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink :href="route('home')"> Home </NavLink>
+                                <NavLink :href="route('home')"> Home</NavLink>
                             </div>
                         </div>
 
@@ -78,8 +78,8 @@ const showingNavigationDropdown = ref(false)
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile</DropdownLink
-                                        >
+                                            Profile
+                                        </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
@@ -95,11 +95,11 @@ const showingNavigationDropdown = ref(false)
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
                             <button
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                                 @click="
                                     showingNavigationDropdown =
                                         !showingNavigationDropdown
                                 "
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                             >
                                 <svg
                                     class="h-6 w-6"
@@ -165,8 +165,8 @@ const showingNavigationDropdown = ref(false)
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile</ResponsiveNavLink
-                            >
+                                Profile
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
@@ -180,7 +180,7 @@ const showingNavigationDropdown = ref(false)
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header v-if="$slots.header" class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>

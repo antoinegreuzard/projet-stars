@@ -1,15 +1,15 @@
-<script setup>
-import { useForm } from '@inertiajs/vue3'
-import { nextTick, ref } from 'vue'
+<script setup lang="ts">
 import DangerButton from '@/Components/DangerButton.vue'
 import InputError from '@/Components/InputError.vue'
 import InputLabel from '@/Components/InputLabel.vue'
 import Modal from '@/Components/Modal.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
 import TextInput from '@/Components/TextInput.vue'
+import { useForm } from '@inertiajs/vue3'
+import { nextTick, ref } from 'vue'
 
 const confirmingUserDeletion = ref(false)
-const passwordInput = ref(null)
+const passwordInput = ref<HTMLInputElement | null>(null)
 
 const form = useForm({
     password: ''
@@ -24,15 +24,17 @@ const closeModal = () => {
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true
 
-    nextTick(() => passwordInput.value.focus())
+    nextTick(() => passwordInput.value?.focus())
 }
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset()
+        onError: () => passwordInput.value?.focus(),
+        onFinish: () => {
+            form.reset()
+        }
     })
 }
 </script>

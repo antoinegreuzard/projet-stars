@@ -1,10 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import { Head, Link } from '@inertiajs/vue3'
 
-const stars = ref([])
-const activeStarIndex = ref(0)
+interface Star {
+    id: number
+    name: string
+    first_name?: string
+    image?: string
+    description?: string
+}
+
+const stars = ref<Star[]>([])
+const activeStarIndex = ref<number>(0)
 
 onMounted(async () => {
     try {
@@ -65,12 +73,12 @@ const selectedStar = computed(() => stars.value[activeStarIndex.value])
                                 <li
                                     v-for="(star, index) in stars"
                                     :key="star.id"
-                                    @click="activeStarIndex = index"
                                     :class="{
                                         'bg-gray-500 text-white':
                                             index === activeStarIndex
                                     }"
                                     class="cursor-pointer p-2 hover:bg-gray-300 rounded-md"
+                                    @click="activeStarIndex = index"
                                 >
                                     {{ star.name }}
                                 </li>

@@ -1,14 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 
-const props = defineProps({
-    status: {
-        type: String
-    }
-})
+const props = defineProps<{
+    status?: string
+}>()
 
 const form = useForm({})
 
@@ -32,8 +30,8 @@ const verificationLinkSent = computed(
         </div>
 
         <div
-            class="mb-4 font-medium text-sm text-green-600"
             v-if="verificationLinkSent"
+            class="mb-4 font-medium text-sm text-green-600"
         >
             A new verification link has been sent to the email address you
             provided during registration.
