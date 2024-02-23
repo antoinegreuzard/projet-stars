@@ -151,15 +151,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
-
-interface Star {
-    id?: number
-    name: string
-    first_name: string
-    image: string
-    description: string
-    newImage?: File
-}
+import { Star } from '@/types'
 
 const stars: Ref<Star[]> = ref([])
 const showCreateForm = ref(false)
