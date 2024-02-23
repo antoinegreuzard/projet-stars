@@ -48,7 +48,7 @@
         </div>
 
         <div
-            v-if="showEditForm"
+            v-if="showEditForm && editingStar"
             class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner"
         >
             <TextInput
@@ -109,7 +109,7 @@
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="stars">
                     <tr
                         v-for="star in stars"
                         :key="star.id"
@@ -125,7 +125,7 @@
                             />
                         </td>
                         <td class="px-4 py-3">{{ star.description }}</td>
-                        <td class="px-4 py-3">
+                        <td v-if="star.id" class="px-4 py-3">
                             <button
                                 class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                                 @click="prepareEditStar(star.id)"
@@ -256,6 +256,8 @@ const handleSubmitCreate = () => handleFormSubmit(false)
 const handleSubmitEdit = () => handleFormSubmit(true)
 
 const deleteStar = async (id: number) => {
+    if (id === undefined) return
+
     try {
         await axios.delete(`/api/stars/${id}`, {
             withCredentials: true,
@@ -268,6 +270,8 @@ const deleteStar = async (id: number) => {
 }
 
 const prepareEditStar = (id: number) => {
+    if (id === undefined) return
+
     const star = stars.value.find(starEl => starEl.id === id)
     if (star) {
         editingStar.value = { ...star, newImage: undefined }
