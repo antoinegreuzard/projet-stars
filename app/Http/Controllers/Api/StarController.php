@@ -65,10 +65,6 @@ class StarController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/stars');
             $validated['image'] = Storage::url($path);
-        } elseif (isset($validated['image']) && $validated['image'] === null) {
-            $validated['image'] = null;
-        } else {
-            unset($validated['image']);
         }
 
         $star->update($validated);

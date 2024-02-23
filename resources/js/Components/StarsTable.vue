@@ -24,7 +24,7 @@
             <input
                 type="file"
                 class="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                @change="handleFileUpload"
+                @change="handleFileUpload($event, false)"
             />
             <textarea
                 v-model="starForm.description"
@@ -65,7 +65,7 @@
             <div v-if="editingStar.image" class="mb-3">
                 <img
                     :src="editingStar.image"
-                    alt="Aperçu de l'image"
+                    alt="Star Image"
                     class="w-32 h-auto rounded"
                 />
             </div>
@@ -73,7 +73,7 @@
             <input
                 type="file"
                 class="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                @change="handleFileUpload"
+                @change="handleFileUpload($event, true)"
             />
 
             <textarea
@@ -97,12 +97,13 @@
                 </button>
             </div>
         </div>
+
         <div class="overflow-x-auto mt-6">
             <table class="w-full text-left rounded-lg overflow-hidden">
                 <thead class="bg-gray-200 uppercase text-gray-600">
                     <tr>
                         <th class="px-4 py-3">Name</th>
-                        <th class="px-4 py-3">first_name</th>
+                        <th class="px-4 py-3">First Name</th>
                         <th class="px-4 py-3">Image</th>
                         <th class="px-4 py-3">Description</th>
                         <th class="px-4 py-3">Actions</th>
@@ -133,9 +134,7 @@
                             </button>
                             <button
                                 class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
-                                @click="
-                                    star.id !== undefined && deleteStar(star.id)
-                                "
+                                @click="deleteStar(star.id)"
                             >
                                 Delete
                             </button>
@@ -153,7 +152,6 @@ import axios from 'axios'
 import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
 
-// Définir les interfaces pour le typage
 interface Star {
     id?: number
     name: string
@@ -163,7 +161,6 @@ interface Star {
     newImage?: File
 }
 
-// Réactives references
 const stars: Ref<Star[]> = ref([])
 const showCreateForm = ref(false)
 const showEditForm = ref(false)
@@ -173,13 +170,7 @@ const starForm: Ref<Star> = ref({
     image: '',
     description: ''
 })
-const editingStar: Ref<Star> = ref({
-    id: undefined,
-    name: '',
-    first_name: '',
-    image: '',
-    description: ''
-})
+const editingStar: Ref<Star | null> = ref(null)
 
 const resetForm = () => {
     starForm.value = {
@@ -192,16 +183,9 @@ const resetForm = () => {
 
 const cancelEdit = () => {
     showEditForm.value = false
-    editingStar.value = {
-        id: undefined,
-        name: '',
-        first_name: '',
-        image: '',
-        description: ''
-    }
+    editingStar.value = null
 }
 
-// Méthodes
 const fetchStars = async () => {
     try {
         const response = await axios.get('/api/stars', {
@@ -214,54 +198,62 @@ const fetchStars = async () => {
     }
 }
 
-const createStar = async (formData: FormData) => {
-    try {
-        const response = await axios.post('/api/stars', formData, {
-            withCredentials: true,
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        stars.value.push(response.data)
-        resetForm()
-        showCreateForm.value = false
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            console.error('There was an error: ', error.response?.data)
-        } else {
-            console.error('Error', error)
-        }
+const handleFormSubmit = async (isEdit: boolean) => {
+    const formData = new FormData()
+    const starData = isEdit ? editingStar.value : starForm.value
+
+    if (!starData) return
+
+    console.log(isEdit)
+    console.log(starData.name)
+
+    formData.append('name', starData.name)
+    formData.append('first_name', starData.first_name)
+    formData.append('description', starData.description)
+
+    console.log(formData.get('name'))
+
+    if (starData.newImage) {
+        formData.append('image', starData.newImage, starData.newImage.name)
     }
-}
 
-const updateStar = async () => {
-    if (!editingStar.value) return
+    if (isEdit) {
+        formData.append('_method', 'PUT')
+    }
+
     try {
-        const formData = new FormData()
-        formData.append('name', editingStar.value.name)
-        formData.append('first_name', editingStar.value.first_name)
-        if (editingStar.value.newImage) {
-            formData.append('image', editingStar.value.newImage)
+        const axiosConfig = {
+            method: 'post',
+            url: `/api/stars/${isEdit && starData.id ? starData.id : ''}`,
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+            withCredentials: true
         }
-        formData.append('description', editingStar.value.description)
+        console.log(axiosConfig)
 
-        const response = await axios.post(
-            `/api/stars/${editingStar.value.id}`,
-            formData,
-            {
-                withCredentials: true,
-                headers: { 'Content-Type': 'multipart/form-data' }
+        const axiosResponse = await axios(axiosConfig)
+        console.log(axiosResponse)
+
+        if (isEdit) {
+            const index = stars.value.findIndex(
+                star => star.id === editingStar.value?.id
+            )
+            if (index !== -1) {
+                stars.value.splice(index, 1, axiosResponse.data)
             }
-        )
-        const index = stars.value.findIndex(
-            star => star.id === editingStar.value.id
-        )
-        if (index !== -1) {
-            stars.value.splice(index, 1, response.data)
+            cancelEdit()
+        } else {
+            stars.value.push(axiosResponse.data)
+            resetForm()
+            showCreateForm.value = false
         }
-        cancelEdit()
     } catch (error) {
-        console.error('There was an error updating the star: ', error)
+        console.error('There was an error processing the star: ', error)
     }
 }
+
+const handleSubmitCreate = () => handleFormSubmit(false)
+const handleSubmitEdit = () => handleFormSubmit(true)
 
 const deleteStar = async (id: number) => {
     try {
@@ -275,41 +267,22 @@ const deleteStar = async (id: number) => {
     }
 }
 
-const prepareEditStar = (id: number | undefined) => {
-    if (typeof id !== 'undefined') {
-        const star = stars.value.find(starElement => starElement.id === id)
-        if (star) {
-            editingStar.value = { ...star }
-            showEditForm.value = true
-        }
+const prepareEditStar = (id: number) => {
+    const star = stars.value.find(starEl => starEl.id === id)
+    if (star) {
+        editingStar.value = { ...star, newImage: undefined }
+        showEditForm.value = true
     }
 }
 
-const handleSubmitCreate = () => {
-    const formData = new FormData()
-    formData.append('name', starForm.value.name)
-    formData.append('first_name', starForm.value.first_name)
-    if (starForm.value.image) {
-        formData.append('image', starForm.value.image)
-    }
-    formData.append('description', starForm.value.description)
-
-    createStar(formData)
-}
-
-const handleSubmitEdit = () => {
-    updateStar()
-}
-
-const handleFileUpload = (event: Event) => {
+const handleFileUpload = (event: Event, isEdit: boolean) => {
     const target = event.target as HTMLInputElement
     if (target.files && target.files[0]) {
         const file = target.files[0]
-        const fileUrl = URL.createObjectURL(file)
-        if (showEditForm.value) {
-            editingStar.value.image = fileUrl
+        if (isEdit) {
+            editingStar.value!.newImage = file
         } else {
-            starForm.value.image = fileUrl
+            starForm.value.newImage = file
         }
     }
 }
