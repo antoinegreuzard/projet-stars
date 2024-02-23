@@ -32,8 +32,8 @@ class StarController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/stars');
-            $validated['image'] = Storage::url($path);
+            $path = $request->file('image')->store('stars', 'public');
+            $validated['image'] = Storage::disk('public')->url($path);
         }
 
         $star = Star::create($validated);
@@ -63,8 +63,8 @@ class StarController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/stars');
-            $validated['image'] = Storage::url($path);
+            $path = $request->file('image')->store('stars', 'public');
+            $validated['image'] = Storage::disk('public')->url($path);
         }
 
         $star->update($validated);
