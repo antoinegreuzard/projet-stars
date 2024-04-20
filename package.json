@@ -41,6 +41,6 @@
         "eslint-plugin-vue": "^9.25.0",
         "prettier": "^3.2.5",
         "typescript": "^5.4.5",
-        "vue-tsc": "^2.0.7"
+        "vue-tsc": "^2.0.13"
     }
 }
