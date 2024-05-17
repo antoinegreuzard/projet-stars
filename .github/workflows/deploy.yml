@@ -21,6 +21,10 @@ jobs:
       - name: Install dependencies
         working-directory: ./
         run: npm install
+      
+      - name: Install Composer dependencies
+        working-directory: ./
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Build 
         working-directory: ./
@@ -31,10 +35,6 @@ jobs:
         with:
           php-version: '8.2'
           extensions: mbstring, pdo, pdo_mysql
-
-      - name: Install Composer dependencies
-        working-directory: ./
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run Laravel migrations
         working-directory: ./
