@@ -249,10 +249,15 @@ const deleteStar = async (id: number) => {
     if (id === undefined) return
 
     try {
-        await axios.delete(`/api/stars/${id}`, {
-            withCredentials: true,
-            headers: { Accept: 'application/json' }
-        })
+        const axiosConfig = {
+            method: 'delete',
+            url: `/api/stars/${id}`,
+            headers: { Accept: 'application/json' },
+            withCredentials: true
+        }
+
+        await axios(axiosConfig)
+
         stars.value = stars.value.filter(star => star.id !== id)
     } catch (error) {
         console.error('There was an error deleting the star: ', error)
