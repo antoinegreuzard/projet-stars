@@ -155,6 +155,7 @@ import type { Ref } from 'vue'
 import { Star } from '@/types'
 
 axios.defaults.withCredentials = true
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 const stars: Ref<Star[]> = ref([])
 const showCreateForm = ref(false)

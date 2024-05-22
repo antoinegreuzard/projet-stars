@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*', 'https://relaxed-goldwasser.212-227-13-57.plesk.page'],
 
     'allowed_origins_patterns' => [],
 
