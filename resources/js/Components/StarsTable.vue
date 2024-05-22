@@ -251,7 +251,8 @@ const deleteStar = async (id: number) => {
         const axiosConfig = {
             method: 'delete',
             url: `/api/stars/${id}`,
-            headers: { Accept: 'application/json' }
+            headers: { Accept: 'application/json' },
+            withCredentials: true
         }
 
         await axios(axiosConfig)
