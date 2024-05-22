@@ -259,14 +259,6 @@ const deleteStar = async (id: number) => {
     }
 }
 
-const fetchCsrfToken = async () => {
-    try {
-        await axios.get('/sanctum/csrf-cookie')
-    } catch (error) {
-        console.error('Error fetching CSRF token:', error)
-    }
-}
-
 const prepareEditStar = (id: number) => {
     if (id === undefined) return
 
@@ -295,5 +287,4 @@ const handleFileUpload = (event: Event, isEdit: boolean) => {
 }
 
 onMounted(fetchStars)
-fetchCsrfToken()
 </script>

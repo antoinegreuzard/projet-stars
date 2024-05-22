@@ -17,13 +17,13 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['GET, POST, PUT, DELETE, OPTIONS'],
+    'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://127.0.0.1:8000', 'https://relaxed-goldwasser.212-227-13-57.plesk.page', 'http://localhost:8000/', 'http://relaxed-goldwasser.212-227-13-57.plesk.page'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Content-Type', 'X-Auth-Token', 'Authorization', 'Origin', 'Accept', 'X-Requested-With', 'X-XSRF-TOKEN'],
+    'allowed_headers' => [' * '],
 
     'exposed_headers' => [],
 
