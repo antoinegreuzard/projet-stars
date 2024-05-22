@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StarController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/stars', [StarController::class, 'index']);
-Route::get('/stars/{star}', [StarController::class, 'show']);
+Route::middleware([
+    'web',
+    EnsureFrontendRequestsAreStateful::class,
+])->group(function () {
+    Route::get('/sanctum/csrf-cookie', function (Request $request) {
+        return response()->noContent();
+    });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/stars', [StarController::class, 'store']);
-    Route::put('/stars/{star}', [StarController::class, 'update']);
-    Route::delete('/stars/{star}', [StarController::class, 'destroy']);
+    Route::get('/stars', [StarController::class, 'index']);
+    Route::get('/stars/{star}', [StarController::class, 'show']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/stars', [StarController::class, 'store']);
+        Route::put('/stars/{star}', [StarController::class, 'update']);
+        Route::delete('/stars/{star}', [StarController::class, 'destroy']);
+    });
 });
