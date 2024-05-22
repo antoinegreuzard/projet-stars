@@ -216,7 +216,7 @@ const handleFormSubmit = async (isEdit: boolean) => {
     try {
         const axiosConfig = {
             method: 'post',
-            url: `/api/stars/${isEdit && starData.id ? starData.id : ''}`,
+            url: `/api/stars${isEdit && starData.id ? `/${starData.id}` : ''}`,
             data: formData,
             headers: { 'Content-Type': 'multipart/form-data' },
             withCredentials: true
