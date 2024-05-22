@@ -49,6 +49,7 @@
 
         <div
             v-if="showEditForm && editingStar"
+            ref="editFormContainer"
             class="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner"
         >
             <TextInput
@@ -147,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import axios from 'axios'
 import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
@@ -163,6 +164,7 @@ const starForm: Ref<Star> = ref({
     description: ''
 })
 const editingStar: Ref<Star | null> = ref(null)
+const editFormContainer = ref<HTMLElement | null>(null)
 
 const resetForm = () => {
     starForm.value = {
@@ -261,6 +263,11 @@ const prepareEditStar = (id: number) => {
     if (star) {
         editingStar.value = { ...star, newImage: undefined }
         showEditForm.value = true
+        nextTick(() => {
+            if (editFormContainer.value) {
+                editFormContainer.value.scrollIntoView({ behavior: 'smooth' })
+            }
+        })
     }
 }
 
