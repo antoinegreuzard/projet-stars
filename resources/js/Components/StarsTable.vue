@@ -154,6 +154,8 @@ import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
 import { Star } from '@/types'
 
+axios.defaults.withCredentials = true
+
 const stars: Ref<Star[]> = ref([])
 const showCreateForm = ref(false)
 const showEditForm = ref(false)
@@ -247,8 +249,7 @@ const deleteStar = async (id: number) => {
 
     try {
         await axios.delete(`/api/stars/${id}`, {
-            withCredentials: true,
-            headers: { Accept: 'application/json' }
+            withCredentials: true
         })
         stars.value = stars.value.filter(star => star.id !== id)
     } catch (error) {
