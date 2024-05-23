@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\StarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\StarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +27,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/stars/{star}', [StarController::class, 'update']);
     Route::delete('/stars/{star}', [StarController::class, 'destroy']);
 });
-
