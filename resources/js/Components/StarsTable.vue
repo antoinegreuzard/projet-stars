@@ -149,7 +149,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
-import axios, { fetchCsrfToken } from '@/axiosConfig'
+import axios from '@/axiosConfig'
 import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
 import { Star } from '@/types'
