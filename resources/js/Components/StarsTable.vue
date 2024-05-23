@@ -246,16 +246,7 @@ const deleteStar = async (id: number) => {
     if (id === undefined) return
 
     try {
-        await fetchCsrfToken()
-
-        const axiosConfig = {
-            method: 'delete',
-            url: `/api/stars/${id}`,
-            headers: { Accept: 'application/json' },
-            withCredentials: true
-        }
-
-        await axios(axiosConfig)
+        await axios.post(`/api/stars/${id}`,{_method: 'delete'})
 
         stars.value = stars.value.filter(star => star.id !== id)
     } catch (error) {
