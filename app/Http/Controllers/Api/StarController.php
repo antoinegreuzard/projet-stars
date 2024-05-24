@@ -106,7 +106,37 @@ class StarController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         description="Pass star data",
-     *         @OA\JsonContent(required={"name", "first_name"})
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"name", "first_name"},
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 maxLength=255,
+     *                 description="Name of the Star",
+     *                 example="Sirius"
+     *             ),
+     *             @OA\Property(
+     *                 property="first_name",
+     *                 type="string",
+     *                 maxLength=255,
+     *                 description="First name of the Star",
+     *                 example="Alpha"
+     *             ),
+     *             @OA\Property(
+     *                 property="image",
+     *                 type="string",
+     *                 format="uri",
+     *                 description="URL of the Star's image",
+     *                 example="http://example.com/images/star.jpg"
+     *             ),
+     *             @OA\Property(
+     *                 property="description",
+     *                 type="string",
+     *                 description="Brief description of the Star",
+     *                 example="A bright star in the night sky."
+     *             )
+     *         )
      *     ),
      *     @OA\Response(
      *         response=201,
