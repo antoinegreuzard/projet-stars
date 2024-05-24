@@ -18,16 +18,6 @@ class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
-     *
-     * @OA\Get(
-     *     path="/register",
-     *     tags={"Auth"},
-     *     summary="Display the registration view",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Registration view rendered"
-     *     )
-     * )
      */
     public function create(): Response
     {
@@ -36,30 +26,6 @@ class RegisteredUserController extends Controller
 
     /**
      * Handle an incoming registration request.
-     *
-     * @OA\Post(
-     *     path="/register",
-     *     tags={"Auth"},
-     *     summary="Handle registration request",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name", "email", "password", "password_confirmation"},
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string", format="email"),
-     *             @OA\Property(property="password", type="string", format="password"),
-     *             @OA\Property(property="password_confirmation", type="string", format="password")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Registration successful"
-     *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validation error"
-     *     )
-     * )
      */
     public function store(Request $request): RedirectResponse
     {

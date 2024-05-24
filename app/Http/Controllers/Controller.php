@@ -53,12 +53,6 @@ use Illuminate\Routing\Controller as BaseController;
  *                description="Description of the Star"
  *            )
  *        ),
- *        @OA\SecurityScheme(
- *             securityScheme="bearerAuth",
- *             type="http",
- *             scheme="bearer",
- *             bearerFormat="JWT"
- *        )
  *    )
  * )
  */
