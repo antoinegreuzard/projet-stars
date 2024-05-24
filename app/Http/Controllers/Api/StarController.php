@@ -57,9 +57,10 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
  *        ),
  *        @OA\SecurityScheme(
  *            securityScheme="sanctum",
- *            type="http",
- *            scheme="bearer",
- *            bearerFormat="JWT"
+ *            type="apiKey",
+ *            name="Authorization",
+ *            in="header",
+ *            description="Enter token in format (Bearer <token>)"
  *        )
  *    )
  * )
@@ -96,13 +97,11 @@ class StarController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @OA\Post(
      *     path="/api/stars",
      *     tags={"Stars"},
      *     summary="Create a new star",
-     *     security={{"bearerAuth":{}}},
+     *     security={{"sanctum":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         description="Pass star data",
@@ -201,15 +200,13 @@ class StarController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @OA\Put(
      *     path="/api/stars/{star}",
      *     tags={"Stars"},
      *     summary="Update an existing star",
      *     description="Update a 'star' by its ID",
      *     operationId="updateStar",
-     *     security={{"bearerAuth":{}}},
+     *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="star",
      *         in="path",
@@ -249,13 +246,11 @@ class StarController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @OA\Delete(
      *     path="/api/stars/{star}",
      *     tags={"Stars"},
      *     summary="Delete a star",
-     *     security={{"bearerAuth":{}}},
+     *     security={{"sanctum":{}}},
      *     @OA\Parameter(
      *         name="star",
      *         in="path",

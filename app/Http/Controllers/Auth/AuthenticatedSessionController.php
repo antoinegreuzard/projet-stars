@@ -76,6 +76,7 @@ class AuthenticatedSessionController extends Controller
      *     path="/logout",
      *     tags={"Auth"},
      *     summary="Logout user",
+     *     security={{"sanctum":{}}},
      *     @OA\Response(
      *         response=302,
      *         description="Logout successful"

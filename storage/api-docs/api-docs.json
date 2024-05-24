@@ -44,7 +44,6 @@
                     "Stars"
                 ],
                 "summary": "Create a new star",
-                "description": "Store a newly created resource in storage.",
                 "operationId": "f664dfe4bde8087c0f9afcf7c8a77957",
                 "requestBody": {
                     "description": "Pass star data",
@@ -100,7 +99,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -185,7 +184,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "sanctum": []
                     }
                 ]
             },
@@ -194,7 +193,6 @@
                     "Stars"
                 ],
                 "summary": "Delete a star",
-                "description": "Remove the specified resource from storage.",
                 "operationId": "b001724f7b5506a9fc139a44ae7e663e",
                 "parameters": [
                     {
@@ -214,7 +212,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -286,7 +284,12 @@
                     "302": {
                         "description": "Logout successful"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/register": {
@@ -430,30 +433,12 @@
                 "description": "Enter token in format (Bearer <token>)",
                 "name": "Authorization",
                 "in": "header"
-            },
-            "passport": {
-                "type": "oauth2",
-                "description": "Laravel passport oauth2 security.",
-                "in": "header",
-                "scheme": "https",
-                "flows": {
-                    "password": {
-                        "authorizationUrl": "http://127.0.0.1:8000/oauth/authorize",
-                        "tokenUrl": "http://127.0.0.1:8000/oauth/token",
-                        "refreshUrl": "http://127.0.0.1:8000/token/refresh",
-                        "scopes": []
-                    }
-                }
             }
         }
     },
     "security": [
         {
-            "oauth2_security_example": [
-                "read",
-                "write"
-            ],
-            "passport": []
+            "sanctum": []
         }
     ]
 }
