@@ -16,6 +16,16 @@ class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
+     *
+     * @OA\Get(
+     *     path="/login",
+     *     tags={"Auth"},
+     *     summary="Display the login view",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login view rendered"
+     *     )
+     * )
      */
     public function create(): Response
     {
@@ -27,6 +37,28 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Handle an incoming authentication request.
+     *
+     * @OA\Post(
+     *     path="/login",
+     *     tags={"Auth"},
+     *     summary="Handle login request",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=302,
+     *         description="Login successful"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid credentials"
+     *     )
+     * )
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -39,6 +71,16 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Destroy an authenticated session.
+     *
+     * @OA\Post(
+     *     path="/logout",
+     *     tags={"Auth"},
+     *     summary="Logout user",
+     *     @OA\Response(
+     *         response=302,
+     *         description="Logout successful"
+     *     )
+     * )
      */
     public function destroy(Request $request): RedirectResponse
     {
