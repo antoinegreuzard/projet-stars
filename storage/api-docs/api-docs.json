@@ -436,6 +436,12 @@
             }
         }
     },
+    "tags": [
+        {
+            "name": "Stars",
+            "description": "Star endpoints"
+        }
+    ],
     "security": [
         {
             "sanctum": []
