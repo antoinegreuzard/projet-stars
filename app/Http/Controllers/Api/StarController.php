@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
  *    ),
  *    @OA\Server(
  *        description="API Server",
- *        url="http://127.0.0.1:8000"
  *    ),
  *    @OA\Components(
  *        @OA\Schema(
