@@ -1,0 +1,265 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My API",
+        "description": "API for managing stars",
+        "contact": {
+            "email": "support@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/stars": {
+            "get": {
+                "tags": [
+                    "Stars"
+                ],
+                "summary": "Get list of all stars",
+                "description": "Display a listing of the resource.",
+                "operationId": "625b084fd10a832b7ff9d6b3d870edbd",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Star"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Stars"
+                ],
+                "summary": "Create a new star",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "f664dfe4bde8087c0f9afcf7c8a77957",
+                "requestBody": {
+                    "description": "Pass star data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "first_name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the Star",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Sirius"
+                                    },
+                                    "first_name": {
+                                        "description": "First name of the Star",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Alpha"
+                                    },
+                                    "image": {
+                                        "description": "URL of the Star's image",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "http://example.com/images/star.jpg"
+                                    },
+                                    "description": {
+                                        "description": "Brief description of the Star",
+                                        "type": "string",
+                                        "example": "A bright star in the night sky."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Star created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Star"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/stars/{id}": {
+            "get": {
+                "tags": [
+                    "Stars"
+                ],
+                "summary": "Get a single star by ID",
+                "description": "Display the specified Star.",
+                "operationId": "de76f82e09b1051c1bc06b8b2d47728b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the star",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Star"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Star not found"
+                    }
+                }
+            }
+        },
+        "/api/stars/{star}": {
+            "put": {
+                "tags": [
+                    "Stars"
+                ],
+                "summary": "Update an existing star",
+                "description": "Update a 'star' by its ID",
+                "operationId": "updateStar",
+                "parameters": [
+                    {
+                        "name": "star",
+                        "in": "path",
+                        "description": "ID of the star to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Star data to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Star"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Star updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Star"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Stars"
+                ],
+                "summary": "Delete a star",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "b001724f7b5506a9fc139a44ae7e663e",
+                "parameters": [
+                    {
+                        "name": "star",
+                        "in": "path",
+                        "description": "ID of the star to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Star deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Star": {
+                "required": [
+                    "name",
+                    "first_name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier for the Star",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "description": "Name of the Star",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "description": "First name of the Star",
+                        "type": "string"
+                    },
+                    "image": {
+                        "description": "URL of the Star's image",
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "description": {
+                        "description": "Description of the Star",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
