@@ -55,7 +55,33 @@
                                 "required": [
                                     "name",
                                     "first_name"
-                                ]
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the Star",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Sirius"
+                                    },
+                                    "first_name": {
+                                        "description": "First name of the Star",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Alpha"
+                                    },
+                                    "image": {
+                                        "description": "URL of the Star's image",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "http://example.com/images/star.jpg"
+                                    },
+                                    "description": {
+                                        "description": "Brief description of the Star",
+                                        "type": "string",
+                                        "example": "A bright star in the night sky."
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
