@@ -15,11 +15,12 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
  *        version="1.0.0",
  *        description="API for managing stars",
  *        @OA\Contact(
- *            email="support@example.com"
+ *            email="antoine@antoinegreuzard.fr"
  *        )
  *    ),
  *    @OA\Server(
  *        description="API Server",
+ *        url=L5_SWAGGER_CONST_HOST
  *    ),
  *    @OA\Components(
  *        @OA\Schema(
