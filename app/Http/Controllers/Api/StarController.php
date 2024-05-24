@@ -56,7 +56,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
  *            )
  *        ),
  *        @OA\SecurityScheme(
- *            securityScheme="bearerAuth",
+ *            securityScheme="sanctum",
  *            type="http",
  *            scheme="bearer",
  *            bearerFormat="JWT"

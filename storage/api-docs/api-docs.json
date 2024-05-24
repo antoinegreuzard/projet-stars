@@ -255,11 +255,35 @@
             }
         },
         "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "bearerFormat": "JWT",
-                "scheme": "bearer"
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            },
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security.",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://127.0.0.1:8000/oauth/authorize",
+                        "tokenUrl": "http://127.0.0.1:8000/oauth/token",
+                        "refreshUrl": "http://127.0.0.1:8000/token/refresh",
+                        "scopes": []
+                    }
+                }
             }
         }
-    }
+    },
+    "security": [
+        {
+            "oauth2_security_example": [
+                "read",
+                "write"
+            ],
+            "passport": []
+        }
+    ]
 }
