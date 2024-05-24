@@ -44,7 +44,7 @@ class StarController extends Controller
      *     path="/api/stars",
      *     tags={"Stars"},
      *     summary="Create a new star",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         description="Pass star data",
@@ -149,7 +149,7 @@ class StarController extends Controller
      *     summary="Update an existing star",
      *     description="Update a 'star' by its ID",
      *     operationId="updateStar",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="star",
      *         in="path",
@@ -193,7 +193,7 @@ class StarController extends Controller
      *     path="/api/stars/{star}",
      *     tags={"Stars"},
      *     summary="Delete a star",
-     *     security={{"sanctum":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="star",
      *         in="path",
