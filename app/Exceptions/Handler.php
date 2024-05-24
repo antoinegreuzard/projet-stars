@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $exception): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response|RedirectResponse
+    public function render($request, Throwable $exception): Response|JsonResponse|RedirectResponse
     {
         if ($exception instanceof ModelNotFoundException) {
             return response()->json(['message' => 'Resource not found'], 404);
