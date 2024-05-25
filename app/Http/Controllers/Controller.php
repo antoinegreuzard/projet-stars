@@ -51,7 +51,19 @@ use Illuminate\Routing\Controller as BaseController;
  *                property="description",
  *                type="string",
  *                description="Description of the Star"
- *            )
+ *            ),
+ *           @OA\Property(
+ *              property="created_at",
+ *              type="string",
+ *              format="date-time",
+ *              description="Timestamp of user creation"
+ *          ),
+ *          @OA\Property(
+ *              property="updated_at",
+ *              type="string",
+ *              format="date-time",
+ *              description="Timestamp of last update"
+ *          )
  *        ),
  *    )
  * )
