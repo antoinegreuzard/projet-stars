@@ -102,45 +102,45 @@
         <div class="overflow-x-auto mt-6">
             <table class="w-full text-left rounded-lg overflow-hidden">
                 <thead class="bg-gray-200 uppercase text-gray-600">
-                    <tr>
-                        <th class="px-4 py-3">Name</th>
-                        <th class="px-4 py-3">First Name</th>
-                        <th class="px-4 py-3">Image</th>
-                        <th class="px-4 py-3">Description</th>
-                        <th class="px-4 py-3">Actions</th>
-                    </tr>
+                <tr>
+                    <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">First Name</th>
+                    <th class="px-4 py-3">Image</th>
+                    <th class="px-4 py-3">Description</th>
+                    <th class="px-4 py-3">Actions</th>
+                </tr>
                 </thead>
                 <tbody v-if="stars">
-                    <tr
-                        v-for="star in stars"
-                        :key="star.id"
-                        class="border-b odd:bg-white even:bg-gray-50"
-                    >
-                        <td class="px-4 py-3">{{ star.name }}</td>
-                        <td class="px-4 py-3">{{ star.first_name }}</td>
-                        <td class="px-4 py-3">
-                            <img
-                                :src="star.image"
-                                alt="Star Image"
-                                class="w-12 h-auto rounded-full"
-                            />
-                        </td>
-                        <td class="px-4 py-3">{{ star.description }}</td>
-                        <td v-if="star.id" class="px-4 py-3">
-                            <button
-                                class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                                @click="prepareEditStar(star.id)"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
-                                @click="deleteStar(star.id)"
-                            >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+                <tr
+                    v-for="star in stars"
+                    :key="star.id"
+                    class="border-b odd:bg-white even:bg-gray-50"
+                >
+                    <td class="px-4 py-3">{{ star.name }}</td>
+                    <td class="px-4 py-3">{{ star.first_name }}</td>
+                    <td class="px-4 py-3">
+                        <img
+                            :src="star.image"
+                            alt="Star Image"
+                            class="w-12 h-auto rounded-full"
+                        />
+                    </td>
+                    <td class="px-4 py-3">{{ star.description }}</td>
+                    <td v-if="star.id" class="px-4 py-3">
+                        <button
+                            class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                            @click="prepareEditStar(star.id)"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
+                            @click="deleteStar(star.id)"
+                        >
+                            Delete
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -154,6 +154,7 @@ import TextInput from '@/Components/TextInput.vue'
 import type { Ref } from 'vue'
 import { Star } from '@/types'
 
+// State variables
 const stars: Ref<Star[]> = ref([])
 const showCreateForm = ref(false)
 const showEditForm = ref(false)
@@ -166,20 +167,7 @@ const starForm: Ref<Star> = ref({
 const editingStar: Ref<Star | null> = ref(null)
 const editFormContainer = ref<HTMLElement | null>(null)
 
-const resetForm = () => {
-    starForm.value = {
-        name: '',
-        first_name: '',
-        image: '',
-        description: ''
-    }
-}
-
-const cancelEdit = () => {
-    showEditForm.value = false
-    editingStar.value = null
-}
-
+// Fetch stars from API
 const fetchStars = async () => {
     try {
         const response = await axios.get('/api/stars', {
@@ -192,6 +180,20 @@ const fetchStars = async () => {
     }
 }
 
+// Handle file upload for both create and edit forms
+const handleFileUpload = (event: Event, isEdit: boolean) => {
+    const target = event.target as HTMLInputElement
+    if (target.files && target.files[0]) {
+        const file = target.files[0]
+        if (isEdit) {
+            if (editingStar.value) editingStar.value.newImage = file
+        } else {
+            starForm.value.newImage = file
+        }
+    }
+}
+
+// Handle form submission for both create and edit
 const handleFormSubmit = async (isEdit: boolean) => {
     const formData = new FormData()
     const starData = isEdit ? editingStar.value : starForm.value
@@ -206,7 +208,7 @@ const handleFormSubmit = async (isEdit: boolean) => {
         formData.append('image', starData.newImage, starData.newImage.name)
     }
 
-    if (isEdit) {
+    if (isEdit && starData.id) {
         formData.append('_method', 'PUT')
     }
 
@@ -221,7 +223,7 @@ const handleFormSubmit = async (isEdit: boolean) => {
 
         const axiosResponse = await axios(axiosConfig)
 
-        if (isEdit) {
+        if (isEdit && editingStar.value) {
             const index = stars.value.findIndex(
                 star => star.id === editingStar.value?.id
             )
@@ -239,24 +241,30 @@ const handleFormSubmit = async (isEdit: boolean) => {
     }
 }
 
+// Handle create form submission
 const handleSubmitCreate = () => handleFormSubmit(false)
+
+// Handle edit form submission
 const handleSubmitEdit = () => handleFormSubmit(true)
 
-const deleteStar = async (id: number) => {
-    if (id === undefined) return
-
-    try {
-        await axios.post(`/api/stars/${id}`, { _method: 'delete' })
-
-        stars.value = stars.value.filter(star => star.id !== id)
-    } catch (error) {
-        console.error('There was an error deleting the star: ', error)
+// Reset form data
+const resetForm = () => {
+    starForm.value = {
+        name: '',
+        first_name: '',
+        image: '',
+        description: ''
     }
 }
 
-const prepareEditStar = (id: number) => {
-    if (id === undefined) return
+// Cancel edit and reset edit form
+const cancelEdit = () => {
+    showEditForm.value = false
+    editingStar.value = null
+}
 
+// Prepare edit form with star data
+const prepareEditStar = (id: number) => {
     const star = stars.value.find(starEl => starEl.id === id)
     if (star) {
         editingStar.value = { ...star, newImage: undefined }
@@ -269,17 +277,16 @@ const prepareEditStar = (id: number) => {
     }
 }
 
-const handleFileUpload = (event: Event, isEdit: boolean) => {
-    const target = event.target as HTMLInputElement
-    if (target.files && target.files[0]) {
-        const file = target.files[0]
-        if (isEdit) {
-            editingStar.value!.newImage = file
-        } else {
-            starForm.value.newImage = file
-        }
+// Delete star by ID
+const deleteStar = async (id: number) => {
+    try {
+        await axios.post(`/api/stars/${id}`, { _method: 'delete' })
+        stars.value = stars.value.filter(star => star.id !== id)
+    } catch (error) {
+        console.error('There was an error deleting the star: ', error)
     }
 }
 
+// Fetch stars on component mount
 onMounted(fetchStars)
 </script>
