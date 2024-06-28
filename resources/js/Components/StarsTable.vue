@@ -193,6 +193,21 @@ const handleFileUpload = (event: Event, isEdit: boolean) => {
     }
 }
 
+const resetForm = () => {
+    starForm.value = {
+        name: '',
+        first_name: '',
+        image: '',
+        description: ''
+    }
+}
+
+// Cancel edit and reset edit form
+const cancelEdit = () => {
+    showEditForm.value = false
+    editingStar.value = null
+}
+
 // Handle form submission for both create and edit
 const handleFormSubmit = async (isEdit: boolean) => {
     const formData = new FormData()
@@ -248,20 +263,6 @@ const handleSubmitCreate = () => handleFormSubmit(false)
 const handleSubmitEdit = () => handleFormSubmit(true)
 
 // Reset form data
-const resetForm = () => {
-    starForm.value = {
-        name: '',
-        first_name: '',
-        image: '',
-        description: ''
-    }
-}
-
-// Cancel edit and reset edit form
-const cancelEdit = () => {
-    showEditForm.value = false
-    editingStar.value = null
-}
 
 // Prepare edit form with star data
 const prepareEditStar = (id: number) => {
