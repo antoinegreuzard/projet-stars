@@ -102,45 +102,45 @@
         <div class="overflow-x-auto mt-6">
             <table class="w-full text-left rounded-lg overflow-hidden">
                 <thead class="bg-gray-200 uppercase text-gray-600">
-                <tr>
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">First Name</th>
-                    <th class="px-4 py-3">Image</th>
-                    <th class="px-4 py-3">Description</th>
-                    <th class="px-4 py-3">Actions</th>
-                </tr>
+                    <tr>
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">First Name</th>
+                        <th class="px-4 py-3">Image</th>
+                        <th class="px-4 py-3">Description</th>
+                        <th class="px-4 py-3">Actions</th>
+                    </tr>
                 </thead>
                 <tbody v-if="stars">
-                <tr
-                    v-for="star in stars"
-                    :key="star.id"
-                    class="border-b odd:bg-white even:bg-gray-50"
-                >
-                    <td class="px-4 py-3">{{ star.name }}</td>
-                    <td class="px-4 py-3">{{ star.first_name }}</td>
-                    <td class="px-4 py-3">
-                        <img
-                            :src="star.image"
-                            alt="Star Image"
-                            class="w-12 h-auto rounded-full"
-                        />
-                    </td>
-                    <td class="px-4 py-3">{{ star.description }}</td>
-                    <td v-if="star.id" class="px-4 py-3">
-                        <button
-                            class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                            @click="prepareEditStar(star.id)"
-                        >
-                            Edit
-                        </button>
-                        <button
-                            class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
-                            @click="deleteStar(star.id)"
-                        >
-                            Delete
-                        </button>
-                    </td>
-                </tr>
+                    <tr
+                        v-for="star in stars"
+                        :key="star.id"
+                        class="border-b odd:bg-white even:bg-gray-50"
+                    >
+                        <td class="px-4 py-3">{{ star.name }}</td>
+                        <td class="px-4 py-3">{{ star.first_name }}</td>
+                        <td class="px-4 py-3">
+                            <img
+                                :src="star.image"
+                                alt="Star Image"
+                                class="w-12 h-auto rounded-full"
+                            />
+                        </td>
+                        <td class="px-4 py-3">{{ star.description }}</td>
+                        <td v-if="star.id" class="px-4 py-3">
+                            <button
+                                class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                                @click="prepareEditStar(star.id)"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
+                                @click="deleteStar(star.id)"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
