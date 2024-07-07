@@ -15,7 +15,7 @@
         "@inertiajs/vue3": "^1.2.0",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-vue": "^5.0.5",
-        "@vue/server-renderer": "^3.4.27",
+        "@vue/server-renderer": "^3.4.30",
         "autoprefixer": "^10.4.19",
         "axios": "^1.7.2",
         "floating-vue": "^5.2.2",
