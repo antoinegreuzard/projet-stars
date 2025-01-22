@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.2",
         "darkaonline/l5-swagger": "^8.6",
-        "fakerphp/faker": "^1.9.1",
+        "fakerphp/faker": "^1.24.1",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^2.0.0",
         "laravel/breeze": "^2.0",
