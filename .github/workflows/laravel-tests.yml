@@ -2,10 +2,7 @@ name: Laravel Tests
 
 on:
   pull_request:
-  workflow_run:
-    workflows: ["Trigger PR Update Checks"]
-    types:
-      - completed
+  push:
 
 jobs:
   laravel-tests:
