@@ -21,7 +21,7 @@ export default defineConfig([
     {
         extends: fixupConfigRules(
             compat.extends(
-                'plugin:vue/vue3-recommended',
+                'plugin:vue/recommended',
                 'eslint:recommended',
                 'plugin:@typescript-eslint/recommended',
                 'plugin:import/recommended',
@@ -78,7 +78,9 @@ export default defineConfig([
                     ts: 'never',
                     js: 'never'
                 }
-            ]
+            ],
+
+            'vue/no-multiple-template-root': 'off'
         }
     }
 ])
