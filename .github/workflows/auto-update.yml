@@ -1,0 +1,26 @@
+name: Auto Update Pull Requests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+  schedule:
+    - cron: '0 8 * * *' # Tous les jours à 8h UTC
+  workflow_dispatch:
+
+jobs:
+  update-open-prs:
+    if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update PRs based on main
+        uses: tzkhan/pr-update-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          update-strategy: rebase
+          pr-author: all
