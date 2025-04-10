@@ -1,0 +1,17 @@
+name: Label Depfu PRs with automerge
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  label:
+    if: github.actor == 'depfu[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add 'automerge' label to Depfu PR
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: automerge
