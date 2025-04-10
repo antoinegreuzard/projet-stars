@@ -1,7 +1,7 @@
 import { PageProps as InertiaPageProps } from '@inertiajs/core'
-import { AxiosInstance } from 'axios'
+import { type AxiosInstance } from 'axios'
 import { route as ziggyRoute } from 'ziggy-js'
-// eslint-disable-next-line import/no-unresolved, import/extensions
+
 import { PageProps as AppPageProps } from '.'
 
 declare global {
