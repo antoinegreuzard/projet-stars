@@ -1,26 +1,22 @@
-name: Auto Update Pull Requests
+name: Auto Rebase Pull Requests
 
 on:
   push:
     branches:
       - main
   pull_request:
-    types: [closed]
-    branches:
-      - main
+    types:
+      - closed
   schedule:
-    - cron: '0 8 * * *' # Tous les jours à 8h UTC
+    - cron: '0 0 * * *' # Tous les jours à minuit UTC
   workflow_dispatch:
 
 jobs:
-  update-open-prs:
-    if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
+  rebase:
     runs-on: ubuntu-latest
     steps:
-      - name: Update PRs based on main
-        uses: tzkhan/pr-update-action@v2
+      - name: Rebase pull requests
+        uses: peter-evans/rebase-pulls@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          update-strategy: rebase
-          pr-author: all
+          token: ${{ secrets.GITHUB_TOKEN }}
