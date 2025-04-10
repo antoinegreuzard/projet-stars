@@ -2,6 +2,8 @@ name: Lint and Format JavaScript/Vue
 
 on:
   pull_request:
+    branches:
+      - main
   push:
 
 jobs:
