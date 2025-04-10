@@ -21,7 +21,7 @@ export default defineConfig([
     {
         extends: fixupConfigRules(
             compat.extends(
-                'plugin:vue/recommended',
+                'plugin:vue/vue3-recommended',
                 'eslint:recommended',
                 'plugin:@typescript-eslint/recommended',
                 'plugin:import/recommended',
