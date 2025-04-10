@@ -16,7 +16,7 @@
         "@tailwindcss/forms": "^0.5.10",
         "@vitejs/plugin-vue": "^5.2.0",
         "@vue/server-renderer": "^3.5.13",
-        "autoprefixer": "^10.4.20",
+        "autoprefixer": "^10.4.21",
         "axios": "^1.8.2",
         "floating-vue": "^5.2.2",
         "laravel-vite-plugin": "^1.0.6",
