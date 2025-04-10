@@ -1,6 +1,11 @@
 name: Lint and Format JavaScript/Vue
 
-on: [push, pull_request]
+on:
+  pull_request:
+  workflow_run:
+    workflows: ["Trigger PR Update Checks"]
+    types:
+      - completed
 
 jobs:
   lint-format:

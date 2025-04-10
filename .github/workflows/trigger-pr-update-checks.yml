@@ -1,0 +1,14 @@
+name: Trigger PR Update Checks
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  maybe-trigger:
+    if: github.actor == 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Just log
+        run: echo "Triggered by github-actions[bot]"
