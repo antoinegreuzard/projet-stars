@@ -6,6 +6,9 @@ on:
       - main
   push:
 
+permissions:
+  contents: read
+  
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
