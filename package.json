@@ -24,7 +24,7 @@
         "tailwindcss": "^4.1.11",
         "vite": "^6.3.5",
         "vue": "^3.4.0",
-        "vue-eslint-parser": "^10.1.4",
+        "vue-eslint-parser": "^10.2.0",
         "ziggy-js": "^2.5.3"
     },
     "devDependencies": {
