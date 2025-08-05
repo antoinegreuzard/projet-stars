@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^2.0.4",
         "laravel/breeze": "^2.0",
-        "laravel/framework": "^12.20.0",
+        "laravel/framework": "^12.21.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "laravel/sanctum": "^4.0",
